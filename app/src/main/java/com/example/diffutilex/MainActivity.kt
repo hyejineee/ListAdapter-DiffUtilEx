@@ -16,8 +16,9 @@ class MainActivity : AppCompatActivity() {
     private var allChecked = false
 
     private var checkList = (1..50).map {
-        TestModel("title$it")
-    }
+        TestModel(id = it, "title$it")
+    }.toMutableList()
+
 
     private var checkBoxValueList = List<Boolean>(50) { false }
 
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         initTestModelRecyclerView()
         addTestModelItem()
         handleAllCheckButtonWhenTestModelList()
+        handleRemoveItemButtonClick()
 
     }
 
@@ -79,24 +81,47 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun handleAllCheckButtonWhenTestModelList() {
         binding.allCheckButton.setOnClickListener {
-            val new = if(allChecked){
+            val new = if (allChecked) {
                 testAdapter.currentList.map {
                     it.copy(check = false)
                 }
-            }else{
+//                testAdapter.currentList.toMutableList().apply {
+//                    this.forEach {
+//                        it.check = false
+//                    }
+//                }
+                //주소값이 같아서 갱신이 안되는 경우
+//                checkList.apply {
+//                    this.forEach {
+//                        it.check = true
+//                    }
+//                }
+            } else {
                 testAdapter.currentList.map {
                     it.copy(check = true)
                 }
 //                testAdapter.currentList.toMutableList().apply {
-//                    replaceAll {
+//                    this.forEach {
 //                        it.check = true
-//                        it
+//                    }
+//                }
+                //주소값이 같아서 갱신이 안되는 경우
+//                checkList.apply {
+//                    this.forEach {
+//                        it.check = false
 //                    }
 //                }
             }
-            Log.d("MainActivity", "currentList : ${testAdapter.currentList} \nnew :${new} ")
             testAdapter.submitList(new)
+
             allChecked = allChecked.not()
+        }
+    }
+
+    private fun handleRemoveItemButtonClick() {
+        binding.removeItemButton.setOnClickListener {
+            val new = testAdapter.currentList.toMutableList().apply { removeFirst() }
+            testAdapter.submitList(new)
         }
     }
 }

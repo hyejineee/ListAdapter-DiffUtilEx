@@ -15,6 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/removeItemButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="remove item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/allCheckButton" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/testRecyclerView"
         android:layout_width="match_parent"
@@ -22,6 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allCheckButton" />
+        app:layout_constraintTop_toBottomOf="@+id/removeItemButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

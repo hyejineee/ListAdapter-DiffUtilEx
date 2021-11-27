@@ -12,7 +12,6 @@ class TestAdapter : androidx.recyclerview.widget.ListAdapter<TestModel, ViewHold
 
     inner class ViewHolder(private val binding: ItemCheckListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: TestModel) {
             binding.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
                 item.check = isChecked
@@ -34,11 +33,12 @@ class TestAdapter : androidx.recyclerview.widget.ListAdapter<TestModel, ViewHold
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<TestModel>() {
             override fun areItemsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
-                Log.d("TestAdapter" , "oldItem's hash : ${oldItem.hashCode()}, newItem's hash :${newItem.hashCode()}")
-                return oldItem.title == newItem.title
+                Log.d("TestAdapter", "areItemsTheSame-oldItem :$oldItem, newItem:$newItem")
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
+                Log.d("TestAdapter", "areContentsTheSame-oldItem :$oldItem, newItem:$newItem")
                 return oldItem == newItem
             }
 
